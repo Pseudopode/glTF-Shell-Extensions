@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 
@@ -14,16 +15,19 @@ namespace glTF
             switch (command)
             {
                 case "Pack":
-                {
-                    new PackWindow(e.Args[1]);
-                    break;
-                }
+                    {
+                        new PackWindow(e.Args[1]);
+                        break;
+                    }
                 case "Unpack":
-                {
-                    var window = new UnpackWindow(e.Args[1]);
-                    window.ShowDialog();
-                    break;
-                }
+                    {
+                        //Console.WriteLine(e.Args[1]);
+                        //Debug.WriteLine(e.Args[1]);
+                        var window = new UnpackWindow(e.Args[1], e.Args[2]);
+                        //window.ShowDialog();
+
+                        break;
+                    }
             }
 
             this.Shutdown();

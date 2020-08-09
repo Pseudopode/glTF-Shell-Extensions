@@ -1,3 +1,30 @@
+# Command Line GLTF <=> GLB Packer/Unpacker
+The idea of this tool is to provide a Windows command line tool to Pack GLTF files to GLB and to Unpack GLB file to GLTF.
+
+This need is base on the glTF-Shell-Extensions tool from Gary Hsu (https://github.com/bghgary/glTF-Shell-Extensions)
+
+The original tool is a shell extension with a GUI.
+I just made some quick and dirty modification to call the tool on the command line.
+
+The syntax is the following:
+## Packing
+`gltf.exe Pack name_of_the_gltf_file`
+
+## Unpacking
+`gltf.exe Unpack name_of_the_glb_file folder_to_output_the_resulting_gltf_file_into`
+
+# Release
+You can find a release with the .exe and its dll in the Release section [Releases](https://github.com/Pseudopode/glTF-Shell-Extensions/releases).
+
+# Changes
+The file that has been changed are UnpackWindow.xaml.cs, PackWindow.xaml.cd and App.xaml.cs
+
+The changes are quick and dirty, a proper rewrite, that would remove all the GUI stuff could be a good thing in the future.
+
+
+-------------------------------
+# README from the original project:
+
 # glTF Shell Extensions for Microsoft Windows
 Microsoft Windows shell extensions that pack .gltf to .glb and unpack .glb to .gltf
 

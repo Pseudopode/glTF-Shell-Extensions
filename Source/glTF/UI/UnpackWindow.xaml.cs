@@ -11,17 +11,20 @@ namespace glTF
     {
         private string inputFilePath;
 
-        public UnpackWindow(string inputFilePath)
+        public UnpackWindow(string inputFilePath, string outDirectoryPath)
         {
             InitializeComponent();
 
-            this.inputFilePath = inputFilePath;
+            /*this.inputFilePath = inputFilePath;
             var inputDirectoryPath = Path.GetDirectoryName(this.inputFilePath);
-            var inputFileName = Path.GetFileNameWithoutExtension(this.inputFilePath);
-            this.Folder.Text = GetUniqueDirectoryPath(Path.Combine(inputDirectoryPath, inputFileName));
+            var inputFileName = Path.GetFileNameWithoutExtension(this.inputFilePath);*/
+            /*this.Folder.Text = GetUniqueDirectoryPath(Path.Combine(inputDirectoryPath, inputFileName));
             this.Folder.SelectAll();
-            this.Folder.Focus();
+            this.Folder.Focus();*/
+
+            UnpackGLB(inputFilePath, outDirectoryPath);
         }
+
 
         private static string GetUniqueDirectoryPath(string baseDirectoryPath)
         {
@@ -83,6 +86,45 @@ namespace glTF
                 {
                     Process.Start(outputDirectoryPath);
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Unpack Error");
+            }
+
+            Directory.Delete(tempDirectoryPath, true);
+            this.Close();
+        }
+
+        private void UnpackGLB(string inputFile, string outputDir)
+        {
+            var tempDirectoryPath = Path.Combine(Path.GetTempPath(), $"glTF.{Guid.NewGuid()}");
+
+            Directory.CreateDirectory(tempDirectoryPath);
+
+            try
+            {
+                Unpacker.Unpack(inputFile, tempDirectoryPath, true);
+
+                var outputDirectoryPath = outputDir;
+                Directory.CreateDirectory(outputDirectoryPath);
+
+                foreach (var filePath in Directory.EnumerateFiles(tempDirectoryPath))
+                {
+                    var outputFilePath = Path.Combine(outputDirectoryPath, Path.GetFileName(filePath));
+
+                    if (File.Exists(outputFilePath))
+                    {
+                        File.Delete(outputFilePath);
+                    }
+
+                    File.Move(filePath, outputFilePath);
+                }
+
+                /*if (this.OpenFolder.IsChecked.Value)
+                {
+                    Process.Start(outputDirectoryPath);
+                }*/
             }
             catch (Exception ex)
             {

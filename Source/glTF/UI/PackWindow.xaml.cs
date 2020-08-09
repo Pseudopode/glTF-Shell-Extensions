@@ -22,7 +22,7 @@ namespace glTF
                 var outputFilePath = GetUniqueFilePath(inputDirectoryPath, inputFileName, ".glb");
                 File.Move(tempFilePath, outputFilePath);
 
-                SelectFileInExplorer(outputFilePath, true);
+                //SelectFileInExplorer(outputFilePath, true);
             }
             catch (Exception ex)
             {
